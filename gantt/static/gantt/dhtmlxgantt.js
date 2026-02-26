@@ -10,6 +10,8 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
 (c) XB Software Ltd.
 
 */
+let table_name="task"
+let link_name="link"
 !function(t, e) {
     "object" == typeof exports && "object" == typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define("dhtmlxgantt", [], e) : "object" == typeof exports ? exports.dhtmlxgantt = e() : t.dhtmlxgantt = e()
 }(window, function() {
@@ -2560,8 +2562,8 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 var s = n.id + "_" + r + "_" + a.unit + "_" + a.step;
                 return e[s] ? e[s] : e[s] = function(e, n, r, a) {
                     var o, s = !1, l = {};
-                    t.config.process_resource_assignments && n === t.config.resource_property ? (o = "task" == e.$role ? t.getResourceAssignments(e.$resource_id, e.$task_id) : t.getResourceAssignments(e.id),
-                    s = !0) : o = "task" == e.$role ? [] : t.getTaskBy(n, e.id);
+                    t.config.process_resource_assignments && n === t.config.resource_property ? (o = table_name == e.$role ? t.getResourceAssignments(e.$resource_id, e.$task_id) : t.getResourceAssignments(e.id),
+                    s = !0) : o = table_name == e.$role ? [] : t.getTaskBy(n, e.id);
                     for (var c, u, d, h, f, l = function(e, n, r) {
                         for (var a = n.unit, o = n.step, s = {}, l = {}, c = 0; c < e.length; c++) {
                             var u = e[c]
@@ -4628,7 +4630,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 var l = n.onchange;
                 return n.onchange = function() {
                     t.changeLightboxType(this.value),
-                    this.value === t.config.types.task && (t._lightbox_new_type = "task"),
+                    this.value === t.config.types.task && (t._lightbox_new_type = table_name),
                     "function" == typeof l && l.apply(this, arguments)
                 }
                 ,
@@ -5443,7 +5445,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                                 l[c] && (e[l[c]] = s[c])
                     }
                 }
-                return "task" == t._lightbox_new_type && (e.type = t.config.types.task,
+                return table_name == t._lightbox_new_type && (e.type = t.config.types.task,
                 t._lightbox_new_type = null),
                 e
             }
@@ -5674,7 +5676,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                     for (var e in this.config.types)
                         if (this.config.types[e] == t)
                             return e;
-                    return "task"
+                    return table_name
                 }
                 .call(this, e);
                 return t.config.lightbox[n + "_sections"] ? t.config.lightbox[n + "_sections"] : t.config.lightbox.sections
@@ -6448,7 +6450,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
         function n(t, e) {
             var n = e.skin;
             if (!n || t)
-                for (var i = document.getElementsByTagName("link"), r = 0; r < i.length; r++) {
+                for (var i = document.getElementsByTagName(link_name), r = 0; r < i.length; r++) {
                     var a = i[r].href.match("dhtmlxgantt_([a-z_]+).css");
                     if (a && (e.skins[a[1]] || !n)) {
                         n = a[1];
@@ -7560,8 +7562,8 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             return {
                 onCreated: function(e) {
                     var o = e.$config;
-                    o.bind = i.defined(o.bind) ? o.bind : "task",
-                    o.bindLinks = i.defined(o.bindLinks) ? o.bindLinks : "link",
+                    o.bind = i.defined(o.bind) ? o.bind : table_name,
+                    o.bindLinks = i.defined(o.bindLinks) ? o.bindLinks : link_name,
                     e._linksDnD = a.createLinkDND(),
                     e._tasksDnD = r.createTaskDND(),
                     e._tasksDnD.extend(e),
@@ -8069,7 +8071,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             return {
                 onCreated: function(e) {
                     e.$config = i.mixin(e.$config, {
-                        bind: "task"
+                        bind: table_name
                     }),
                     "grid" == e.$config.id && (this.extendGantt(e),
                     t.ext.inlineEditors = t.ext._inlineEditors.createEditors(e),
@@ -10633,7 +10635,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 },
                 init: function() {
                     var e = this.createDataRender({
-                        name: "task",
+                        name: table_name,
                         defaultContainer: function() {
                             return t.$task_data ? t.$task_data : t.$ui.getView("timeline") ? t.$ui.getView("timeline").$task_data : void 0
                         },
@@ -10643,7 +10645,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                         filter: function(t) {}
                     }, t)
                       , n = this.createDataRender({
-                        name: "link",
+                        name: link_name,
                         defaultContainer: function() {
                             return t.$task_data ? t.$task_data : t.$ui.getView("timeline") ? t.$ui.getView("timeline").$task_data : void 0
                         }
@@ -10943,10 +10945,10 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 n.registerView("viewcell", c),
                 n.registerView("multiview", l),
                 n.registerView("timeline", h, function(t) {
-                    "timeline" !== (t.$config ? t.$config.id : null) && "task" != t.$config.bind || e(t, E)
+                    "timeline" !== (t.$config ? t.$config.id : null) && table_name != t.$config.bind || e(t, E)
                 }),
                 n.registerView("grid", f, function(t) {
-                    "grid" !== (t.$config ? t.$config.id : null) && "task" != t.$config.bind || e(t, C)
+                    "grid" !== (t.$config ? t.$config.id : null) && table_name != t.$config.bind || e(t, C)
                 }),
                 n.registerView("resourceGrid", _),
                 n.registerView("resourceTimeline", g),
@@ -11372,11 +11374,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -11552,11 +11554,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -11612,11 +11614,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -11676,7 +11678,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 confirm_link_deleting: "будет удалена",
                 link_start: " (начало)",
                 link_end: " (конец)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Минута",
@@ -11732,11 +11734,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -11792,11 +11794,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Data início",
                 column_duration: "Duração",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "Será excluído!",
                 link_start: " (início)",
                 link_end: " (fim)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Projeto",
                 type_milestone: "Marco",
                 minutes: "Minutos",
@@ -11852,7 +11854,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Początek",
                 column_duration: "Czas trwania",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "zostanie usunięty",
                 link_start: " (początek)",
                 link_end: " (koniec)",
@@ -11912,11 +11914,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -11976,7 +11978,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 confirm_link_deleting: "zal worden verwijderd",
                 link_start: " (start)",
                 link_end: " (eind)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "minuten",
@@ -12032,11 +12034,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12175,11 +12177,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12235,11 +12237,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Inizio",
                 column_duration: "Durata",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "sarà eliminato",
                 link_start: " (inizio)",
                 link_end: " (fine)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minuti",
@@ -12295,11 +12297,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12355,11 +12357,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12475,11 +12477,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12539,7 +12541,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 confirm_link_deleting: "sera supprimé",
                 link_start: "(début)",
                 link_end: "(fin)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12595,11 +12597,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12775,11 +12777,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12835,11 +12837,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -12895,11 +12897,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Startzeit",
                 column_duration: "Dauer",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "werden gelöscht",
                 link_start: "(starten)",
                 link_end: "(ende)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minuten",
@@ -12955,11 +12957,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -13015,11 +13017,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -13135,11 +13137,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -13199,7 +13201,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 confirm_link_deleting: "будзе выдалена",
                 link_start: "(пачатак)",
                 link_end: "(канец)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Хвiлiна",
@@ -13255,11 +13257,11 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 column_start_date: "Start time",
                 column_duration: "Duration",
                 column_add: "",
-                link: "Link",
+                link: link_name,
                 confirm_link_deleting: "will be deleted",
                 link_start: " (start)",
                 link_end: " (end)",
-                type_task: "Task",
+                type_task: table_name,
                 type_project: "Project",
                 type_milestone: "Milestone",
                 minutes: "Minutes",
@@ -16628,7 +16630,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             t.attachEvent("onBeforeUndoStack", function(e) {
                 for (var n = 0; n < e.commands.length; n++) {
                     var i = e.commands[n];
-                    "task" === i.entity && i.value.type === t.config.types.placeholder && (e.commands.splice(n, 1),
+                    table_name === i.entity && i.value.type === t.config.types.placeholder && (e.commands.splice(n, 1),
                     n--)
                 }
                 return !0
@@ -17069,7 +17071,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             function l(e, n, i) {
                 var r = t.config.resource_property
                   , a = [];
-                if (t.getDatastore("task").exists(n)) {
+                if (t.getDatastore(table_name).exists(n)) {
                     var o = t.getTask(n);
                     a = o[r] || []
                 }
@@ -17271,9 +17273,9 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                     n = !1,
                     e || this.render(),
                     a && (this._dp.setUpdateMode(i),
-                    this._dp.setGanttMode("task"),
+                    this._dp.setGanttMode(table_name),
                     this._dp.sendData(),
-                    this._dp.setGanttMode("link"),
+                    this._dp.setGanttMode(link_name),
                     this._dp.sendData())
                 }
             }
@@ -17338,18 +17340,18 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             }
             ,
             t._change_id = function(t, e) {
-                "task" !== this._dp._ganttMode ? this.changeLinkId(t, e) : this.changeTaskId(t, e)
+                table_name !== this._dp._ganttMode ? this.changeLinkId(t, e) : this.changeTaskId(t, e)
             }
             ,
             t._row_style = function(e, n) {
-                "task" === this._dp._ganttMode && t.isTaskExists(e) && (t.getTask(e).$dataprocessor_class = n,
+                table_name === this._dp._ganttMode && t.isTaskExists(e) && (t.getTask(e).$dataprocessor_class = n,
                 t.refreshTask(e))
             }
             ,
             t._delete_task = function(t, e) {}
             ,
             t._sendTaskOrder = function(t, e) {
-                e.$drop_target && (this._dp.setGanttMode("task"),
+                e.$drop_target && (this._dp.setGanttMode(table_name),
                 this.getTask(t).target = e.$drop_target,
                 this._dp.setUpdated(t, !0, "order"),
                 delete this.getTask(t).$drop_target)
@@ -17566,7 +17568,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
           , l = n(195);
         e.createDataProcessor = function(t) {
             var e, n;
-            t instanceof Function ? e = t : t.hasOwnProperty("router") ? e = t.router : t.hasOwnProperty("link") && t.hasOwnProperty("task") && (e = t),
+            t instanceof Function ? e = t : t.hasOwnProperty("router") ? e = t.router : t.hasOwnProperty(link_name) && t.hasOwnProperty(table_name) && (e = t),
             n = e ? "CUSTOM" : t.mode || "REST-JSON";
             var i = new c(t.url);
             return i.init(this),
@@ -17703,9 +17705,9 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             ,
             t.prototype.sendData = function(t) {
                 return this.$gantt.editStop && this.$gantt.editStop(),
-                void 0 === t || this._tSend ? this.modes && this.modes.task && this.modes.link && this.modes.task.updatedRows.length && this.modes.link.updatedRows.length ? (this.setGanttMode("task"),
+                void 0 === t || this._tSend ? this.modes && this.modes.task && this.modes.link && this.modes.task.updatedRows.length && this.modes.link.updatedRows.length ? (this.setGanttMode(table_name),
                 this.sendAllData(),
-                this.setGanttMode("link"),
+                this.setGanttMode(link_name),
                 void this.sendAllData()) : this.sendAllData() : !this._in_progress[t] && (this.messages = [],
                 !(!this.checkBeforeUpdate(t) && this.callEvent("onValidationError", [t, this.messages])) && void this._beforeSendData(this._getRowData(t), t))
             }
@@ -17809,7 +17811,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 i = 3 === arguments.length ? arguments[1] : arguments[4];
                 var r = this.getGanttMode()
                   , a = i.filePath || i.url;
-                r = "REST" !== this._tMode && "REST-JSON" !== this._tMode ? -1 !== a.indexOf("gantt_mode=links") ? "link" : "task" : a.indexOf("/link") > a.indexOf("/task") ? "link" : "task",
+                r = "REST" !== this._tMode && "REST-JSON" !== this._tMode ? -1 !== a.indexOf("gantt_mode=links") ? link_name : table_name : a.indexOf("/link") > a.indexOf("/task") ? link_name : table_name,
                 this.setGanttMode(r);
                 var o, s = this.$gantt.ajax;
                 try {
@@ -17974,7 +17976,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             }
             ,
             t.prototype.setGanttMode = function(t) {
-                "tasks" === t ? t = "task" : "links" === t && (t = "link");
+                "tasks" === t ? t = table_name : "links" === t && (t = link_name);
                 var e = this.modes || {}
                   , n = this.getGanttMode();
                 n && (e[n] = {
@@ -18238,7 +18240,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             ,
             t.prototype._getRowData = function(t) {
                 var e, n = this.$gantt;
-                return "task" === this.getGanttMode() ? n.isTaskExists(t) && (e = this.$gantt.getTask(t)) : n.isLinkExists(t) && (e = this.$gantt.getLink(t)),
+                return table_name === this.getGanttMode() ? n.isTaskExists(t) && (e = this.$gantt.getTask(t)) : n.isLinkExists(t) && (e = this.$gantt.getLink(t)),
                 e || (e = this.getStoredItem(t)),
                 e || (e = {
                     id: t
@@ -18741,7 +18743,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             var e = r.create();
             i.mixin(t, e);
             var s = t.createDatastore({
-                name: "task",
+                name: table_name,
                 type: "treeDatastore",
                 rootId: function() {
                     return t.config.root_id
@@ -18773,7 +18775,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                 }
             })
               , l = t.createDatastore({
-                name: "link",
+                name: link_name,
                 initItem: i.bind(function(t) {
                     return this.defined(t.id) || (t.id = this.uid()),
                     t
@@ -24304,7 +24306,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                     start_to_finish: "3"
                 },
                 types: {
-                    task: "task",
+                    task: table_name,
                     project: "project",
                     milestone: "milestone"
                 },
@@ -24814,7 +24816,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                     any: 0
                 };
                 t.commands.sort(function(t, i) {
-                    if ("task" === t.entity && "task" === i.entity)
+                    if (table_name === t.entity && table_name === i.entity)
                         return t.type !== i.type ? (n[i.type] || 0) - (n[t.type] || 0) : "move" === t.type && t.oldValue && i.oldValue && i.oldValue.parent === t.oldValue.parent ? t.oldValue.$index - i.oldValue.$index : 0;
                     var r = e[t.entity] || e.any;
                     return (e[i.entity] || e.any) - r
@@ -25101,7 +25103,7 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
                     t.setNestedTasks(e, i),
                     !0
                 });
-                var l = n.getDatastore("task");
+                var l = n.getDatastore(table_name);
                 l.attachEvent("onBeforeItemMove", function(e, n, i) {
                     return t.isMoveEventsIgnored() || a(),
                     !0
@@ -25223,8 +25225,8 @@ To use dhtmlxGantt in non-GPL projects (and get Pro version of the product), ple
             t.config.undo = !0,
             t.config.redo = !0,
             t.config.undo_types = {
-                link: "link",
-                task: "task"
+                link: link_name,
+                task: table_name
             },
             t.config.undo_actions = {
                 update: "update",
