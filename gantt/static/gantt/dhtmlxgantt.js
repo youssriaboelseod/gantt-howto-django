@@ -3484,7 +3484,7 @@ let link_name="link"
                 n
             }
             ,
-            this.$parentProperty = t.parentProperty || "parent",
+            this.$parentProperty = t.parentProperty || "parent_id",
             "function" != typeof t.rootId ? this.$getRootId = function(t) {
                 return function() {
                     return t

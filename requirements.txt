@@ -1,3 +1,6 @@
-reportlab==4.4.7
+reportlab==4.4.10
 arabic_reshaper==3.0.0
-python-bidi==0.6.6
+python-bidi==0.6.7
+django==6.0.3
+djangorestframework==3.17.1
+numpy==2.4.3

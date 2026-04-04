@@ -7,7 +7,7 @@ class TaskSerializer(serializers.ModelSerializer):
     end_date = serializers.DateTimeField(format='%Y-%m-%d %H:%M')
     class Meta:
         model = Task
-        fields = ('id', 'name', 'start_date', 'end_date', 'duration', 'progress', 'parent', 'order')
+        fields = ('id', 'name', 'start_date', 'end_date', 'duration', 'progress', 'parent_id', 'order')
 
 class LinkSerializer(serializers.ModelSerializer):
 

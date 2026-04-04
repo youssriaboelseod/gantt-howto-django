@@ -7,7 +7,7 @@ class Task(models.Model):
 	end_date = models.DateTimeField()
 	duration = models.IntegerField()
 	progress = models.FloatField()
-	parent = models.CharField(max_length=100)
+	parent_id = models.CharField(max_length=100)
 	order = models.IntegerField(default=0)
 
 class Link(models.Model):
