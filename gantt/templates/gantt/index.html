@@ -47,9 +47,9 @@
 		});
 
 		gantt.init("gantt_here");
-		gantt.load("/data/", "json");
+		gantt.load("{{ request.path }}data/", "json");
 
-		var dp = new gantt.dataProcessor("/data/");
+		var dp = new gantt.dataProcessor("{{ request.path }}data/");
 		dp.init(gantt);
 		dp.setTransactionMode("REST");
 

@@ -5401,7 +5401,7 @@ let link_name="link"
             t._save_lightbox = function() {
                 var t = this.getLightboxValues();
                 this.callEvent("onLightboxSave", [this._lightbox_id, t, !!t.$new]) && (t.$new ? (delete t.$new,
-                this.addTask(t, t.parent, this.getTaskIndex(t.id))) : this.isTaskExists(t.id) && (this.mixin(this.getTask(t.id), t, !0),
+                this.addTask(t, t.parent_id, this.getTaskIndex(t.id))) : this.isTaskExists(t.id) && (this.mixin(this.getTask(t.id), t, !0),
                 this.refreshTask(t.id),
                 this.updateTask(t.id)),
                 this.refreshData(),
