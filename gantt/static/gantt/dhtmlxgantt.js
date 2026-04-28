@@ -7089,9 +7089,9 @@ let link_name="link"
                       , i = {
                         source: t.link_source_id,
                         target: t.link_target_id,
-                        type: n
+                        type_link: n
                     };
-                    i.type && e.isLinkAllowed(i) && e.callEvent("onLinkCreated", [i]) && e.addLink(i)
+                    i.type_link && e.isLinkAllowed(i) && e.callEvent("onLinkCreated", [i]) && e.addLink(i)
                 }
                 m(),
                 e.config.touch ? e.refreshData() : (t.link_source_id && e.refreshTask(t.link_source_id, !1),
@@ -8774,8 +8774,8 @@ let link_name="link"
                     var i = n.links
                       , r = !1
                       , a = !1;
-                    return e.type == i.start_to_start ? r = a = !0 : e.type == i.finish_to_finish ? r = a = !1 : e.type == i.finish_to_start ? (r = !1,
-                    a = !0) : e.type == i.start_to_finish ? (r = !0,
+                    return e.type_link == i.start_to_start ? r = a = !0 : e.type_link == i.finish_to_finish ? r = a = !1 : e.type_link == i.finish_to_start ? (r = !1,
+                    a = !0) : e.type_link == i.start_to_finish ? (r = !0,
                     a = !1) : t.assert(!1, "Invalid link type"),
                     n.rtl && (r = !r,
                     a = !a),
@@ -9145,7 +9145,7 @@ let link_name="link"
                 return r.join((e.delimiter || ",") + " ")
             }
             function l(t) {
-                return t.source + "_" + t.target + "_" + t.type + "_" + (t.lag || 0)
+                return t.source + "_" + t.target + "_" + t.type_link + "_" + (t.lag || 0)
             }
             function c(e, n, i) {
                 var r = function(e, n, i) {
@@ -9408,7 +9408,7 @@ let link_name="link"
                             r.shiftKey ? t.editPrevCell(!0) : t.editNextCell(!0);
                             var h = t.getState();
                             h.id && a.focus({
-                                type: "taskCell",
+                                type_link: "taskCell",
                                 id: h.id,
                                 column: h.columnName
                             }),
@@ -13644,10 +13644,10 @@ let link_name="link"
                 if (!(a = "object" == i(t) ? t : {
                     source: t,
                     target: e,
-                    type: this._get_link_type(n, r)
+                    type_link: this._get_link_type(n, r)
                 }))
                     return !1;
-                if (!(a.source && a.target && a.type))
+                if (!(a.source && a.target && a.type_link))
                     return !1;
                 if (a.source == a.target)
                     return !1;
@@ -15871,7 +15871,7 @@ let link_name="link"
                     i
                 },
                 _copyLink: function(t) {
-                    return "<item id='" + t.id + "' source='" + t.source + "' target='" + t.target + "' type='" + t.type + "' />"
+                    return "<item id='" + t.id + "' source='" + t.source + "' target='" + t.target + "' type_link='" + t.type_link + "' />"
                 },
                 _copyObject: function(t) {
                     return "<task id='" + t.id + "' parent='" + (t.parent || "") + "' start_date='" + t.start_date + "' duration='" + t.duration + "' open='" + !!t.open + "' progress='" + t.progress + "' end_date='" + t.end_date + "'><![CDATA[" + t.name + "]]></task>"
@@ -15913,7 +15913,7 @@ let link_name="link"
                         l.predecessortasks && i.collections.links.push({
                             target: l.id,
                             source: l.predecessortasks,
-                            type: t.config.links.finish_to_start
+                            type_link: t.config.links.finish_to_start
                         })
                     }
                     return i
@@ -16414,7 +16414,7 @@ let link_name="link"
                         id: void 0,
                         source: e._findSource(n) || null,
                         target: null,
-                        type: e._gantt.config.links.finish_to_start,
+                        type_link: e._gantt.config.links.finish_to_start,
                         lag: 0
                     }
                 }
@@ -18848,7 +18848,7 @@ let link_name="link"
                     var r = t.getLink(n[i])
                       , a = e.source == r.source
                       , o = e.target == r.target
-                      , s = e.type == r.type;
+                      , s = e.type_link == r.type_link;
                     if (a && o && s)
                         return !1
                 }

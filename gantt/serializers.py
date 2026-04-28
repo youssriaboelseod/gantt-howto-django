@@ -13,4 +13,4 @@ class LinkSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Link
-        fields = ('id', 'source', 'target', 'type', 'lag')
+        fields = ('id', 'source', 'target', 'type_link', 'lag')
