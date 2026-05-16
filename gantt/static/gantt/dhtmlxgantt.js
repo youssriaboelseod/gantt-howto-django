@@ -24407,6 +24407,12 @@ let link_name="link"
                         name: "time",
                         type: "duration",
                         map_to: "auto"
+                    }, {
+                        name: "inheritance",
+                        type: "parent",
+                        map_to: "parent_id",
+                        //focus: !0
+
                     }],
                     project_sections: [{
                         name: "description",
